@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>BombDodgerRascoe</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] AeonDesktopTheme-source</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/feathers-1.2.0/themes/AeonDesktopTheme/source</locationURI>
+		</link>
+		<link>
+			<name>[source path] MetalWorksMobileTheme-source</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/feathers-1.2.0/themes/MetalWorksMobileTheme/source</locationURI>
+		</link>
+		<link>
+			<name>[source path] MinimalMobileTheme-source</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/feathers-1.2.0/themes/MinimalMobileTheme/source</locationURI>
+		</link>
+		<link>
+			<name>[source path] feathers-1.2.0-source</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/feathers-1.2.0/source</locationURI>
+		</link>
+		<link>
+			<name>[source path] src</name>
+			<type>2</type>
+			<locationURI>DOCUMENTS/PrimaryFeather-Starling-Framework-1a50854/starling/src</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
