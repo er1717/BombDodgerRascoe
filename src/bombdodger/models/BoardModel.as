@@ -55,11 +55,9 @@ package bombdodger.models
 		
 		private function determineDiffucltyLevel(inGameLevel:String):void
 		{
-			var switchExpression:int = 3;
-			
 			switch (inGameLevel) {
 				case Enums.MENU_GAME_LEVEL_EASY:
-						this._diffcultyLevel = 1;
+						this._diffcultyLevel = 1.95;
 					break;
 				case Enums.MENU_GAME_LEVEL_MEDIUM:
 						this._diffcultyLevel = 2;
@@ -220,7 +218,7 @@ package bombdodger.models
 				var tempTile:Tile = new Tile(this._tileModel, this._tileController);
 				var isBomb:Boolean = false;
 				var randomVal:Number = Math.random() * this._diffcultyLevel;
-				var mineValue:Number = ((this._diffcultyLevel * this._diffcultyLevel) *.025) * this._diffcultyLevel;
+				var mineValue:Number = ((this._diffcultyLevel * this._diffcultyLevel) *.03) * this._diffcultyLevel;
 				mineValue > randomVal ? isBomb = true:isBomb = false;
 				
 				if (isBomb)
@@ -274,14 +272,17 @@ package bombdodger.models
 			 var tileNeighbors:int = 0;
 			try
 			{
-				if(this._boardMap[inRowIndex-1][inTileIndex-1] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex-1]).isBomb) tileNeighbors++ ;
-				if(this._boardMap[inRowIndex-1][inTileIndex] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex]).isBomb) tileNeighbors++ ;
-				if(this._boardMap[inRowIndex-1][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex+1]).isBomb) tileNeighbors++ ;
+				if(this._boardMap[inRowIndex-1] && this._boardMap[inRowIndex-1][inTileIndex-1] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex-1]).isBomb) tileNeighbors++ ;
+				if(this._boardMap[inRowIndex-1] && this._boardMap[inRowIndex-1][inTileIndex] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex]).isBomb) tileNeighbors++ ;
+				if(this._boardMap[inRowIndex-1] && this._boardMap[inRowIndex-1][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex+1]).isBomb) tileNeighbors++ ;
+				
 				if(this._boardMap[inRowIndex][inTileIndex-1] && TileDataItem(this._boardMap[inRowIndex][inTileIndex-1]).isBomb) tileNeighbors++ ;
 				if(this._boardMap[inRowIndex][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex][inTileIndex+1]).isBomb) tileNeighbors++ ;
-				if(this._boardMap[inRowIndex+1][inTileIndex-1] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex-1]).isBomb) tileNeighbors++ ;
-				if(this._boardMap[inRowIndex+1][inTileIndex] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex]).isBomb) tileNeighbors++ ;
-				if(this._boardMap[inRowIndex+1][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex+1]).isBomb) tileNeighbors++ ;
+
+				if(this._boardMap[inRowIndex+1] && this._boardMap[inRowIndex+1][inTileIndex-1] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex-1]).isBomb) tileNeighbors++ ;
+				if(this._boardMap[inRowIndex+1] && this._boardMap[inRowIndex+1][inTileIndex] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex]).isBomb) tileNeighbors++ ;
+				if(this._boardMap[inRowIndex+1] && this._boardMap[inRowIndex+1][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex+1]).isBomb) tileNeighbors++ ;
+
 			}
 			catch(caughtError:Error)
 			{

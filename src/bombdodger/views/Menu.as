@@ -217,7 +217,7 @@ package bombdodger.views
 			this._currentState = inState;
 			this._currentState == Enums.MENU_BEGIN_VIEW ? this.displayBeginView():this.displayPlayView();
 			var val:int = 0;
-			this._menuController.dispatchEvent(new MenuEvent(MenuEvent.MENU_CLICK_MODE_CHANGE, val));
+			this._clickModeGroup.selectedIndex = 0;
 		}
 	}
 }
