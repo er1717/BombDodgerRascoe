@@ -122,8 +122,7 @@ package bombdodger.views.tiles
 			}
 			else if(this._tileModel.clickMode == 1)
 			{
-				this.markTile();
-				this.tileDataItem.isMarked = true;
+				this.handleMarking();
 			}
 		}
 		
