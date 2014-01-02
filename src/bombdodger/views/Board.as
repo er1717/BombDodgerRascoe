@@ -125,7 +125,7 @@ package bombdodger.views
 			this.addAlert(false);
 		}		
 		
-		private function onBoardGameWin(inEvent:GameEvent):void
+		private function onBoardGameWin(inEvent:BoardEvent):void
 		{
 			this.touchable = false;
 			this.addAlert(true);

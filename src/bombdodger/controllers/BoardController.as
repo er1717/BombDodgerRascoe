@@ -43,7 +43,7 @@ package bombdodger.controllers
 		
 		private function onNoMoreTiles(inEvent:BoardEvent):void
 		{
-			GameController.gameController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_NO_MORE_TILES, null));
+			GameController.gameController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_NO_MORE_TILES, inEvent.command));
 		}
 		
 		private function onBoardDataSetupComplete(inEvent:BoardEvent):void

@@ -36,9 +36,7 @@ package bombdodger.models
 		private var _tileModel:TileModel;
 		private var _tileController:TileController;
 		private var _boardController:BoardController;
-		//private var _boardMap:Array; new Vector.<Vector.<TileDataItem>>();
-		private var _boardMap:Vector.<Vector.<TileDataItem>>;// Vector.<TileDataItem>
-		//private var _boardMap:Vector.<Vector>
+		private var _boardMap:Array;
 		private var _alertListCollection:ListCollection;
 		
 		
@@ -60,7 +58,7 @@ package bombdodger.models
 			switch (inGameLevel) 
 			{
 				case Enums.MENU_GAME_LEVEL_EASY:
-						this._diffcultyLevel = 1.95;
+						this._diffcultyLevel = 1;
 					break;
 				case Enums.MENU_GAME_LEVEL_MEDIUM:
 						this._diffcultyLevel = 2;
@@ -106,7 +104,7 @@ package bombdodger.models
 		
 		private function onBoardGameWin(inEvent:GameEvent):void
 		{
-			this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_WIN, null));
+			this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_WIN, inEvent.command));
 		}
 		
 		private function onBoardGameLose(inEvent:GameEvent):void
@@ -148,7 +146,7 @@ package bombdodger.models
 			
 			if(this._remainingTiles == 0)
 			{
-				this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_NO_MORE_TILES, null));
+				this._boardController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_NO_MORE_TILES, null));
 			}
 		}
 		
@@ -203,11 +201,11 @@ package bombdodger.models
 		private function buildNewBoardMapAndSetupBoardData():void
 		{
 			var columnsNumber:int = this._boardHeight/this._tileHeight;
-			this._boardMap = new Vector.<Vector.<TileDataItem>>();
+			this._boardMap = new Array();
 			
 			for(var i:int=0; i<columnsNumber; i++)
 			{
-				this._boardMap.push(new Vector.<TileDataItem>());
+				this._boardMap.push(new Array());
 			}
 			
 			this.setupBoardData();
@@ -286,8 +284,7 @@ package bombdodger.models
 		private function checkForNeighbors(inRowIndex:int, inTileIndex:int):int
 		{
 			 var tileNeighbors:int = 0;
-			try
-			{
+
 				if(this._boardMap[inRowIndex-1] && this._boardMap[inRowIndex-1][inTileIndex-1] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex-1]).isBomb) tileNeighbors++ ;
 				if(this._boardMap[inRowIndex-1] && this._boardMap[inRowIndex-1][inTileIndex] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex]).isBomb) tileNeighbors++ ;
 				if(this._boardMap[inRowIndex-1] && this._boardMap[inRowIndex-1][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex-1][inTileIndex+1]).isBomb) tileNeighbors++ ;
@@ -299,11 +296,6 @@ package bombdodger.models
 				if(this._boardMap[inRowIndex+1] && this._boardMap[inRowIndex+1][inTileIndex] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex]).isBomb) tileNeighbors++ ;
 				if(this._boardMap[inRowIndex+1] && this._boardMap[inRowIndex+1][inTileIndex+1] && TileDataItem(this._boardMap[inRowIndex+1][inTileIndex+1]).isBomb) tileNeighbors++ ;
 
-			}
-			catch(caughtError:Error)
-			{
-				//no logic for now
-			}
 			return tileNeighbors;
 		}
 		
