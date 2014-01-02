@@ -232,7 +232,7 @@ package bombdodger.models
 				var tempTile:Tile = new Tile(this._tileModel, this._tileController);
 				var isBomb:Boolean = false;
 				var randomVal:Number = Math.random() * this._diffcultyLevel;
-				var mineValue:Number = ((this._diffcultyLevel * this._diffcultyLevel) *.03) * this._diffcultyLevel;
+				var mineValue:Number = ((this._diffcultyLevel * this._diffcultyLevel) *.04) * this._diffcultyLevel;
 				mineValue > randomVal ? isBomb = true:isBomb = false;
 				
 				if (isBomb)
