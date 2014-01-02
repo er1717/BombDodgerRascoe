@@ -12,6 +12,7 @@ package bombdodger.events
 		public static const GAME_BOARD_DATA_START:String = "GAME_BOARD_DATA_START";
 		public static const GAME_BOARD_DATA_COMPLETE:String = "GAME_BOARD_DATA_COMPLETE";
 		public static const GAME_BOARD_WIN:String = "GAME_BOARD_WIN";
+		public static const GAME_BOARD_LOSE:String = "GAME_BOARD_LOSE";
 		public static const GAME_BOARD_UPDATE_REMAINING_TILES:String = "GAME_BOARD_UPDATE_REMAINING_TILES";
 		public static const GAME_MENU_DATA_START:String = "GAME_MENU_DATA_START";
 		public static const GAME_MENU_DATA_COMPLETE:String = "GAME_MENU_DATA_COMPLETE";

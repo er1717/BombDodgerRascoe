@@ -20,6 +20,9 @@ package bombdodger.enumerations
 		public static const MENU_GAME_LEVEL_EASY:String  = "Easy";
 		public static const MENU_GAME_LEVEL_MEDIUM:String  = "Medium";
 		public static const MENU_GAME_LEVEL_HARD:String  = "Hard";
+		public static const MENU_GAME_LEVEL_EASY_TIME:int  = 101;
+		public static const MENU_GAME_LEVEL_MEDIUM_TIME:int  = 201;
+		public static const MENU_GAME_LEVEL_HARD_TIME:int  = 301;
 		public static const MENU_BEGIN_HEADER:String  = "Select a Level";
 		public static const MENU_PLAY_INSTRUCTIONS:String  = "Select Mark Mode to mark tiles";
 		public static const MENU_PLAY_RESTART_BUTTON_TEXT:String = "Restart";

@@ -36,7 +36,9 @@ package bombdodger.models
 		private var _tileModel:TileModel;
 		private var _tileController:TileController;
 		private var _boardController:BoardController;
-		private var _boardMap:Array;
+		//private var _boardMap:Array; new Vector.<Vector.<TileDataItem>>();
+		private var _boardMap:Vector.<Vector.<TileDataItem>>;// Vector.<TileDataItem>
+		//private var _boardMap:Vector.<Vector>
 		private var _alertListCollection:ListCollection;
 		
 		
@@ -55,7 +57,8 @@ package bombdodger.models
 		
 		private function determineDiffucltyLevel(inGameLevel:String):void
 		{
-			switch (inGameLevel) {
+			switch (inGameLevel) 
+			{
 				case Enums.MENU_GAME_LEVEL_EASY:
 						this._diffcultyLevel = 1.95;
 					break;
@@ -96,6 +99,19 @@ package bombdodger.models
 			this._tileController.addEventListener(BoardEvent.BOARD_TILE_CLICK, this.onBoardTileClick);
 			GameController.gameController.addEventListener(GameEvent.GAME_MENU_RESTART, this.onGameRestart);
 			GameController.gameController.addEventListener(GameEvent.GAME_MENU_LEVEL_SELECTED, this.onGameLevelSelected);
+			GameController.gameController.addEventListener(GameEvent.GAME_BOARD_LOSE, this.onBoardGameLose);
+			GameController.gameController.addEventListener(GameEvent.GAME_BOARD_WIN, this.onBoardGameWin);
+		}
+		
+		
+		private function onBoardGameWin(inEvent:GameEvent):void
+		{
+			this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_WIN, null));
+		}
+		
+		private function onBoardGameLose(inEvent:GameEvent):void
+		{
+			this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_LOSE, inEvent.command));
 		}
 		
 		private function onGameLevelSelected(inEvent:GameEvent):void
@@ -132,7 +148,7 @@ package bombdodger.models
 			
 			if(this._remainingTiles == 0)
 			{
-				this._boardController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_WIN, null));
+				this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_NO_MORE_TILES, null));
 			}
 		}
 		
@@ -142,7 +158,7 @@ package bombdodger.models
 			var tempTileDataItem:TileDataItem = inEvent.command;
 			if(tempTileDataItem.isBomb)
 			{
-				this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_BOMB_CLICKED, tempTileDataItem.tileIndex));
+				this._boardController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_BOMB_CLICKED, tempTileDataItem.tileIndex));
 			}
 			else
 			{
@@ -182,16 +198,16 @@ package bombdodger.models
 				this._tileDataItems.pop();
 			}
 		}
+	
 		
 		private function buildNewBoardMapAndSetupBoardData():void
 		{
 			var columnsNumber:int = this._boardHeight/this._tileHeight;
-			var tempArray:Array = new Array();
-			this._boardMap = tempArray;
+			this._boardMap = new Vector.<Vector.<TileDataItem>>();
 			
 			for(var i:int=0; i<columnsNumber; i++)
 			{
-				this._boardMap.push(new Array());
+				this._boardMap.push(new Vector.<TileDataItem>());
 			}
 			
 			this.setupBoardData();

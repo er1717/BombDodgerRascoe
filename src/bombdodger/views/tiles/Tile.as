@@ -99,7 +99,7 @@ package bombdodger.views.tiles
 		}
 	
 		
-		private function onTouch(inTouchEvent:TouchEvent):void
+		public function onTouch(inTouchEvent:TouchEvent):void
 		{
 			var touch:Touch = inTouchEvent.getTouch(this.stage);
 			var touches:Vector.<Touch> = inTouchEvent.getTouches(this,TouchPhase.BEGAN);
@@ -243,18 +243,8 @@ package bombdodger.views.tiles
 		
 		public function hideCover():void
 		{
-			try
-			{
-				this._cover.visible = false;
-				this._markImage.visible = false;
-			}
-			catch(caughtError:Error)
-			{
-			}
-		}
-		
-		public function onClick():void
-		{
+			this._cover.visible = false;
+			this._markImage.visible = false;
 		}
 	}
 }

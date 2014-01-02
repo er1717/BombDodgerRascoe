@@ -34,6 +34,7 @@ package bombdodger.views
 		private var _restartButton:Button;
 		private var _instructionsField:TextField;
 		private var _remainingTiles:TextField;
+		private var _remainingTime:TextField;
 		private var _clickModeGroup:ToggleGroup;
 		private var _radioReg:Radio;
 		private var _radioMark:Radio
@@ -52,9 +53,11 @@ package bombdodger.views
 			this.makeBackground();
 			this.makeLevelsButton();
 			this.addHeaderTextfield();
-			this.addIndicatorButton();
-			this.addRemTilesLabelAndField();
+			this.addRestartButton();
+			this.addInstructionsField();
 			this.addClickModeGroup();
+			this.addRemainingTilesField();
+			this.addRemainingTimeField();
 			this.updateState(this._currentState);
 		}
 		
@@ -65,7 +68,7 @@ package bombdodger.views
 			this._radioReg = new Radio();
 			this._radioReg.label = Enums.MENU_RADIO_HIT; 
 			this._radioReg.toggleGroup = this._clickModeGroup;
-			this._radioReg.x = 400;
+			this._radioReg.x = 250;
 			this._radioReg.y 150;
 			this._radioReg.height = 130;
 			this.addChild( this._radioReg );
@@ -73,7 +76,7 @@ package bombdodger.views
 			this._radioMark = new Radio();
 			this._radioMark.label = Enums.MENU_RADIO_MARK;
 			this._radioMark.toggleGroup = this._clickModeGroup;
-			this._radioMark.x = 600;
+			this._radioMark.x = 525;
 			this._radioMark.y 150;
 			this._radioMark.height = 130;
 			this.addChild(this._radioMark);
@@ -87,7 +90,7 @@ package bombdodger.views
 			this._menuController.dispatchEvent(new MenuEvent(MenuEvent.MENU_CLICK_MODE_CHANGE, group.selectedIndex));
 		}
 		
-		private function addIndicatorButton():void
+		private function addRestartButton():void
 		{	
 			this._restartButton = new Button();
 			this._restartButton.label = this._menuModel.menuReturnButtonText;
@@ -96,32 +99,48 @@ package bombdodger.views
 			this._restartButton.width = 100;
 			this._restartButton.height = 30;
 			this._restartButton.x = 12;
-			this._restartButton.y = 30;
+			this._restartButton.y = 4;
 			this.addChild(this._restartButton);
 		}
 		
 		
-		private function addRemTilesLabelAndField():void
+		private function addInstructionsField():void
 		{
-			this._instructionsField = new TextField(400, 30, "label")
+			this._instructionsField = new TextField(400, 30, "")
 			this._instructionsField.text = this._menuModel.menuPlayInstructions;
-			this._instructionsField.x = 350;
+			this._instructionsField.x = 200;
 			this._instructionsField.y = 10;
 			this._instructionsField.fontSize = 24;
 			this._instructionsField.autoScale = true;
-			this._instructionsField.color = 0x444444;
+			this._instructionsField.color = 0x333333;
 			this.addChild(this._instructionsField);
-			
-			
-			this._remainingTiles =  new TextField(120, 80, "")
+		}
+		
+		private function addRemainingTilesField():void
+		{
+			this._remainingTiles =  new TextField(120, 80, "");
 			this._remainingTiles.text = "000";
-			this._remainingTiles.x = 150;
+			this._remainingTiles.x = 6;
 			this._remainingTiles.y = 20;
 			this._remainingTiles.fontSize = 48;
 			this._remainingTiles.bold = true;
 			this._remainingTiles.autoScale = true;
 			this._remainingTiles.color = 0xFF8000;
-			this.addChild(this._remainingTiles);
+			this.addChild(this._remainingTiles);			
+		}
+		
+		
+		private function addRemainingTimeField():void
+		{
+			this._remainingTime = new TextField(120, 80, "");
+			this._remainingTime.text = "000";
+			this._remainingTime.x = 675;
+			this._remainingTime.y = 20;
+			this._remainingTime.fontSize = 48;
+			this._remainingTime.bold = true;
+			this._remainingTime.autoScale = true;
+			this._remainingTime.color = 0xFF8000;
+			this.addChild(this._remainingTime);
 		}
 		
 		
@@ -167,9 +186,14 @@ package bombdodger.views
 		{
 			this._menuModel.addEventListener(MenuEvent.MENU_BUILD_VIEW, this.onMenuBuildView);
 			this._menuModel.addEventListener(MenuEvent.MENU_UPDATE_DATA, this.onUpdateData);
+			this._menuModel.addEventListener(MenuEvent.MENU_UPDATE_TIME, this.onUpdateTimeEvent);
 			this._menuModel.addEventListener(MenuEvent.MENU_CHANGE_STATE, this.onChangeState);
 		}
-
+		
+		private function onUpdateTimeEvent(inEvent:MenuEvent):void
+		{
+			this.updateTime(inEvent.command);
+		}
 		
 		private function onChangeState(inEvent:MenuEvent):void
 		{
@@ -179,6 +203,11 @@ package bombdodger.views
 		private function onUpdateData(inEvent:MenuEvent):void
 		{
 			this._remainingTiles.text = inEvent.command;
+		}
+		
+		private function updateTime(inTime:int):void
+		{
+			this._remainingTime.text = String(inTime);	
 		}
 		
 		private function onMenuBuildView(inEvent:MenuEvent):void
@@ -192,6 +221,7 @@ package bombdodger.views
 			this._restartButton.visible = false;
 			this._instructionsField.visible = false;
 			this._remainingTiles.visible = false;
+			this._remainingTime.visible = false;
 			this._radioReg.visible = false;
 			this._radioMark.visible = false;
 				
@@ -205,9 +235,11 @@ package bombdodger.views
 			this._levelButtons.visible = false;
 			this._headerTextField.visible = false;
 			
+			this._remainingTime.text = "";
 			this._restartButton.visible = true;
 			this._instructionsField.visible = true;
 			this._remainingTiles.visible = true;
+			this._remainingTime.visible = true;
 			this._radioReg.visible = true;
 			this._radioMark.visible = true;
 		}

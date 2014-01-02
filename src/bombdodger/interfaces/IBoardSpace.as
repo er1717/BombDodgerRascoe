@@ -1,7 +1,9 @@
 package bombdodger.interfaces
 {
+	import starling.events.TouchEvent;
+	
 	public interface IBoardSpace
 	{
-		function onClick():void;
+		function onTouch(inTouchEvent:TouchEvent):void;
 	}
 }

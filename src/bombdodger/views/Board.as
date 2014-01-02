@@ -108,17 +108,26 @@ package bombdodger.views
 		private function addEventListeners():void
 		{
 			this._boardModel.addEventListener(BoardEvent.BOARD_BUILD_VIEW,  this.onBoardBuildView);
-			this._boardModel.addEventListener(BoardEvent.BOARD_REVEAL_CLICKED_TILE, this.onBoardRevealClicked);
-			this._boardModel.addEventListener(BoardEvent.BOARD_REVEAL_TILE, this.onBoardRevealClicked);
-			this._boardModel.addEventListener(BoardEvent.BOARD_BOMB_CLICKED, this.onBoardBombClicked);
+			this._boardModel.addEventListener(BoardEvent.BOARD_REVEAL_CLICKED_TILE, this.onBoardRevealTile);
+			this._boardModel.addEventListener(BoardEvent.BOARD_REVEAL_TILE, this.onBoardRevealTile);
 			this._boardModel.addEventListener(BoardEvent.BOARD_CLEAR_DATA, this.onBoardClearData);
 			this._boardModel.addEventListener(BoardEvent.BOARD_BUILD_COMPLETE, this.onBoardBuildComplete);
-			GameController.gameController.addEventListener(GameEvent.GAME_BOARD_WIN, this.onBoardGameWin);
+			this._boardModel.addEventListener(BoardEvent.BOARD_GAME_WIN, this.onBoardGameWin);
+			this._boardModel.addEventListener(BoardEvent.BOARD_GAME_LOSE, this.onBoardGameLose);
 		}
 		
 		
+		private function onBoardGameLose(inEvent:BoardEvent):void
+		{
+			this.touchable = false;
+			if(inEvent.command is int){this.highLightClickedBomb(inEvent.command)};
+			this.revealBombs();
+			this.addAlert(false);
+		}		
+		
 		private function onBoardGameWin(inEvent:GameEvent):void
 		{
+			this.touchable = false;
 			this.addAlert(true);
 		}		
 		
@@ -134,23 +143,30 @@ package bombdodger.views
 			this.clearBoard();
 		}
 		
-		private function onBoardBombClicked(inEvent:BoardEvent):void
+		private function highLightClickedBomb(inIndex:int):void
+		{
+			var tempTile:Tile;
+			
+			if(inIndex > -1 && inIndex < this._tilesVector.length)
+			{
+				tempTile = this._tilesVector[inIndex];
+				tempTile.showHighLite();
+			}
+		}
+		
+		private function revealBombs():void
 		{
 			var tempTileDataItem:TileDataItem;
 			var tempTile:Tile;
-			
-			tempTile = this._tilesVector[inEvent.command];
-			tempTile.showHighLite();
 			
 			for(var i:int=0; i<this._tilesVector.length; i++)
 			{
 				tempTile = Tile(this._tilesVector[i]);
 				tempTileDataItem = tempTile.tileDataItem;
 				if(tempTileDataItem.isBomb) tempTile.hideCover();
-			}
-			this.touchable = false;
-			this.addAlert(false);
+			}			
 		}
+		
 		
 		private function addAlert(inWin:Boolean=false):void
 		{
@@ -162,7 +178,7 @@ package bombdodger.views
 		}
 		
 		
-		private function onBoardRevealClicked(inEvent:BoardEvent):void
+		private function onBoardRevealTile(inEvent:BoardEvent):void
 		{
 			var tempIndex:int = inEvent.command;
 			Tile(this._tilesVector[tempIndex]).hideCover();

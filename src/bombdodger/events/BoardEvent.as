@@ -14,7 +14,9 @@ package bombdodger.events
 		public static const BOARD_REVEAL_CLICKED_TILE:String = "BOARD_REVEAL_CLICKED_TILE";
 		public static const BOARD_REVEAL_TILE:String = "BOARD_REVEAL_TILE";
 		public static const BOARD_BOMB_CLICKED:String = "BOARD_BOMB_CLICKED";
+		public static const BOARD_GAME_NO_MORE_TILES:String = "BOARD_GAME_NO_MORE_TILES";
 		public static const BOARD_GAME_WIN:String = "BOARD_GAME_WIN";
+		public static const BOARD_GAME_LOSE:String = "BOARD_GAME_LOSE";
 		public static const BOARD_CLEAR_DATA:String = "BOARD_CLEAR_DATA";
 		public static const BOARD_BUILD_COMPLETE:String = "BOARD_BUILD_COMPLETE";
 		public static const BOARD_ALERT_RESTART:String = "BOARD_ALERT_RESTART";

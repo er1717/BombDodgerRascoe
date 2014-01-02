@@ -25,8 +25,14 @@ package bombdodger.controllers
 		{	
 			GameController.gameController.addEventListener(GameEvent.GAME_BOARD_DATA_START, this.onGameBoardDataStart);
 			this.addEventListener(BoardEvent.BOARD_DATA_SETUP_COMPLETE, this.onBoardDataSetupComplete);
-			this.addEventListener(BoardEvent.BOARD_GAME_WIN, this.onBoardGameWin);
+			this.addEventListener(BoardEvent.BOARD_GAME_NO_MORE_TILES, this.onNoMoreTiles);
+			this.addEventListener(BoardEvent.BOARD_BOMB_CLICKED, this.onBoardBombClicked);
 			this.addEventListener(BoardEvent.BOARD_UPDATE_REMANING_TILES, this.onBoardUpdateRemainingTile);
+		}
+		
+		private function onBoardBombClicked(inEvent:BoardEvent):void
+		{
+			GameController.gameController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_BOMB_CLICKED, inEvent.command));
 		}
 		
 		private function onBoardUpdateRemainingTile(inEvent:BoardEvent):void
@@ -35,9 +41,9 @@ package bombdodger.controllers
 		}
 		
 		
-		private function onBoardGameWin(inEvent:BoardEvent):void
+		private function onNoMoreTiles(inEvent:BoardEvent):void
 		{
-			GameController.gameController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_WIN, null));
+			GameController.gameController.dispatchEvent(new BoardEvent(BoardEvent.BOARD_GAME_NO_MORE_TILES, null));
 		}
 		
 		private function onBoardDataSetupComplete(inEvent:BoardEvent):void
@@ -49,6 +55,7 @@ package bombdodger.controllers
 		{
 			this.dispatchEvent(new BoardEvent(BoardEvent.BOARD_DATA_SETUP_INIT, null));
 		}
+		
 		
 		
 		public function onBoardAlertRestart(inEvent:Event):void

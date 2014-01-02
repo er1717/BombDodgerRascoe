@@ -27,6 +27,12 @@ package bombdodger.controllers
 			GameController.gameController.addEventListener(GameEvent.GAME_MENU_DATA_START, this.onMenuDataStart);
 			this.addEventListener(MenuEvent.MENU_RESTART, this.onMenuRestart);
 			this.addEventListener(MenuEvent.MENU_CLICK_MODE_CHANGE, this.onClickModeChange);
+			this.addEventListener(MenuEvent.MENU_OUT_OF_TIME, this.onMenuOutOfTime);
+		}
+		
+		private function onMenuOutOfTime(inEvent:MenuEvent):void
+		{
+			GameController.gameController.dispatchEvent(new MenuEvent(MenuEvent.MENU_OUT_OF_TIME, inEvent.command));
 		}
 		
 		private function onClickModeChange(inEvent:MenuEvent):void
@@ -36,17 +42,17 @@ package bombdodger.controllers
 		
 		private function onMenuRestart(inEvent:MenuEvent):void
 		{
-			GameController.gameController.dispatchEvent(new MenuEvent(MenuEvent.MENU_RESTART, null));
+			GameController.gameController.dispatchEvent(new MenuEvent(MenuEvent.MENU_RESTART, inEvent.command));
 		}		
 		
 		private function onMenuDataStart(inEvent:GameEvent):void
 		{
-			this.dispatchEvent(new MenuEvent(MenuEvent.MENU_DATA_SETUP_INIT,null));
+			this.dispatchEvent(new MenuEvent(MenuEvent.MENU_DATA_SETUP_INIT,inEvent.command));
 		}
 		
 		private function onMenuDataSetupComplete(inEvent:MenuEvent):void
 		{
-			GameController.gameController.dispatchEvent(new GameEvent(GameEvent.GAME_MENU_DATA_COMPLETE, null));
+			GameController.gameController.dispatchEvent(new GameEvent(GameEvent.GAME_MENU_DATA_COMPLETE, inEvent.command));
 		}
 		
 		public function onLevelSelectionClick(inEvent:Event):void
