@@ -90,7 +90,6 @@ package bombdodger.views.tiles
 		public function makeCover():void
 		{	
 			this._cover = this._tileModel.tileCover;
-			this._cover.alpha = .7
 			this.addChild(this._cover);
 		}
 		
